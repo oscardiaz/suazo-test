@@ -27,7 +27,7 @@ class V1::UsersController < ApplicationController
 
   # autentica atravez de email y password del usaurio
   def login
-    user = User.find(email: params[:auth][:email].downcase)
+    user = User.find_by(email: params[:auth][:email].downcase)
     if user&.authenticate(params[:auth][:password])
       token = encode_token({ user_id: user.id, created_at: Time.now.to_i })
       render json: { user: user, token: token }, status: 200

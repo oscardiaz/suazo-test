@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'user/login' => 'users#login' # ----------------------------------------------------> autenticacion por credenciales
       get 'user/current' => 'users#auto_login' # ----------------------------------------------> autenticacion por token
-      resources :users, only: %i[create, show]
+      resources :users, only: %i[create show index]
       resources :groups
       resources :tasks
     end

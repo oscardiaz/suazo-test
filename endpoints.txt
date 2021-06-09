@@ -1,0 +1,131 @@
+all end points require in headers
+content-type: appliaction/json
+
+########## USERS ###########
+
+user attributes
+  {
+    "user": {
+      "email": string,
+      "password": string,
+      "password_confirmation": string(optional)
+    }
+  }
+
+create user -> api/v1/users -> post
+body
+  user
+response
+ { status: 'ok' }
+
+list of users -> api/v1/users -> get
+response
+  [users]
+
+auth with credentiasl -> api/v1/user/login -> post
+body
+{
+	"auth": {
+		"email": "samuel021093@gmail.com",
+		"password": "Password123"
+	}
+}
+response
+  { user, "token": "token" }
+
+auth for token -> api/v1/user/current -> get
+headers
+    Authorization: Bearer ${token}
+response
+  user
+
+##########GROUPS ###########
+
+group attirbutes
+  {
+    "group": {
+      "id": integer
+      "title": string,
+      "tasks_attributes": [tasks] (optional)
+    }
+  }
+
+create group -> api/v1/groups -> post
+headers
+  Authorization: Bearer ${token}
+body
+  group
+resposne
+  {
+    group_attributes,
+    tasks: [tasks]
+  }
+
+get groups -> api/v1/groups -> get
+headers
+  Authorization: Bearer ${token}
+response
+  [
+    {
+      group_attributes,
+      tasks: [tasks]
+    }
+  ]
+
+edit group -> api/v1/groups/:id -> put
+headers
+  Authorization: Bearer ${token}
+body
+  group
+respuesta
+  {
+    group_attributes,
+    tasks: [tasks]
+  }
+
+delete group -> api/v1/groups/:id -> delete
+headers
+  Authorization: Bearer ${token}
+respuesta
+  { group_attributes }
+
+########## TASKS ###########
+
+{
+	"task": {
+    "id": number
+		"group_id": number,
+		"title": string,
+		"description": string,
+    "status": enum [pending, finished]
+	}
+}
+
+crear tarea
+api/v1/tasks -> post
+headers
+  Authorization: Bearer ${token}
+body
+  task
+respuesta
+  {task}
+
+list of tasks -> api/v1/tasks -> get
+headers
+  Authorization: Bearer ${token}
+respones
+  [tasks]
+
+edit task -> api/v1/task/:id -> get
+headers
+  Authorization: Bearer ${token}
+body
+  task
+respuesta
+  tasks
+
+delete tasks -> api/v1/task/:id -> get
+headers
+  Authorization: Bearer ${token}
+response
+  task
