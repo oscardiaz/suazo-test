@@ -5,13 +5,9 @@ class V1::GroupsController < ApplicationController
   before_action :authorized
 
   def index
-    groups = @current_user.groups
+    groups = @current_user.groups.includes(:tasks)
     render json: groups, status: 200
   end
-
-  # def show
-  #   @ = .find(params[:id])
-  # end
 
   def create
     group = Group.new(permit_params)

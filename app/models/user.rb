@@ -7,4 +7,6 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, email: true
 
   has_many :groups, class_name: 'Group'
+
+  has_many :tasks, class_name: 'Task', through: :groups
 end

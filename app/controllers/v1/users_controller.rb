@@ -2,12 +2,17 @@
 
 # Users controllers
 class V1::UsersController < ApplicationController
-  before_action :authorized, only: %i[auto_login]
+  before_action :authorized, only: %i[auto_login show]
 
   # lista de usuarios
   def index
     users = User.all
-    render json: users, each_serializer: User::ShowSerializer, status: 200
+    render json: users, each_serializer: User::IndexSerializer, status: 200
+  end
+
+  # ver un usuario
+  def show
+    render json: @current_user, serializer: User::ShowSerializer, status: 200
   end
 
   # crea el usario
@@ -33,7 +38,7 @@ class V1::UsersController < ApplicationController
 
   # autenticacion atravez del token
   def auto_login
-    render json: @current_user, serializer: User::ShowSerializer, status: 200
+    render json: @current_user, serializer: User::IndexSerializer, status: 200
   end
 
   private

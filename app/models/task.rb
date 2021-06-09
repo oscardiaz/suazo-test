@@ -6,7 +6,5 @@ class Task < ApplicationRecord
   validates_presence_of :title
   validates_presence_of :description
 
-  accepts_nested_attributes_for :group
-
   enum status: { pending: 0, finished: 1 }
 end
