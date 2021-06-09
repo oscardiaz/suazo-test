@@ -12,7 +12,7 @@ class V1::UsersController < ApplicationController
 
   # crea el usario
   def create
-    user = User.create(user_params)
+    user = User.create(permit_params)
     if user.valid?
       render json: { status: 'ok' }, status: 200
     else
@@ -38,7 +38,7 @@ class V1::UsersController < ApplicationController
 
   private
 
-  def user_params
+  def permit_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-# Controller for user
+# class user
 class User < ApplicationRecord
   has_secure_password
   before_validation { assign_attributes(email: email.to_s.downcase) }
   validates :email, uniqueness: true, email: true
+
+  has_many :groups, class_name: 'Group'
 end
